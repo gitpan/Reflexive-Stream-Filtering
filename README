@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution Reflexive-Stream-Filtering,
-version 1.103410:
+version 1.103450:
 
   Provides a Reflex Stream object that can use POE::Filters
 

@@ -1,6 +1,6 @@
 package Reflexive::Stream::Filtering;
 BEGIN {
-  $Reflexive::Stream::Filtering::VERSION = '1.103410';
+  $Reflexive::Stream::Filtering::VERSION = '1.103450';
 }
 
 #ABSTRACT: Provides a Reflex Stream object that can use POE::Filters
@@ -23,7 +23,7 @@ Reflexive::Stream::Filtering - Provides a Reflex Stream object that can use POE:
 
 =head1 VERSION
 
-version 1.103410
+version 1.103450
 
 =head1 DESCRIPTION
 

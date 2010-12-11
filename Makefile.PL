@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     'POE::Filter::Stream' => '0',
     'Reflex::Stream' => '0'
   },
-  'VERSION' => '1.103410',
+  'VERSION' => '1.103450',
   'test' => {
     'TESTS' => 't/*.t'
   }

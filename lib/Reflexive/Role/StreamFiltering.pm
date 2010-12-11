@@ -1,6 +1,6 @@
 package Reflexive::Role::StreamFiltering;
 BEGIN {
-  $Reflexive::Role::StreamFiltering::VERSION = '1.103410';
+  $Reflexive::Role::StreamFiltering::VERSION = '1.103450';
 }
 
 #ABSTRACT: Provides a composable behavior for Reflex::Streams to use POE::Filters
@@ -14,7 +14,7 @@ use MooseX::Types::Moose(':all');
 use MooseX::Types::Structured(':all');
 
 
-has filter =>
+has input_filter =>
 (
     is => 'bare',
     isa => 'POE::Filter',
@@ -23,10 +23,20 @@ has filter =>
     {
         'filter_get' => 'get_one',
         'filter_start' => 'get_one_start',
-        'filter_put' => 'put',
     }
 );
 
+
+has output_filter =>
+(
+    is => 'bare',
+    isa => 'POE::Filter',
+    default => sub { POE::Filter::Stream->new() },
+    handles =>
+    {
+        'filter_put' => 'put',
+    }
+);
 
 
 around on_data => sub
@@ -88,7 +98,7 @@ Reflexive::Role::StreamFiltering - Provides a composable behavior for Reflex::St
 
 =head1 VERSION
 
-version 1.103410
+version 1.103450
 
 =head1 DESCRIPTION
 
@@ -100,7 +110,7 @@ same filter is used for both inbound and outbound filtering.
 
 =head1 PUBLIC_ATTRIBUTES
 
-=head2 filter
+=head2 input_filter
 
     is: bare, isa: POE::Filter, default: POE::Filter::Stream
 
@@ -112,11 +122,23 @@ Internally, the following handles are provided:
     {
         'filter_get' => 'get_one',
         'filter_start' => 'get_one_start',
-        'filter_put' => 'put',
     }
 
 Incidentially, only the newer POE::Filter get_one_start/get_one interace is
 supported.
+
+=head2 output_filter
+
+    is: bare, isa: POE::Filter, default: POE::Filter::Stream
+
+Like the input_filter attribute, this is to be provided at construction time of
+the Stream. If an output_filter is not provided, POE::Filter::Stream is used.
+
+The following handles are provided:
+
+    {
+        'filter_put' => 'put'
+    }
 
 =head1 PUBLIC_METHODS
 

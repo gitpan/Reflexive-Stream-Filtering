@@ -1,4 +1,7 @@
-Revision history for Reflexive-Stream-Filtering: 1.103410
+Revision history for Reflexive-Stream-Filtering: 1.103450
+
+1.103450  2010-12-11 15:02:56 America/Chicago
+        Implement both input and output filters
 
 1.103410  2010-12-07 01:20:10 America/Chicago
         Initial Release

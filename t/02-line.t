@@ -14,8 +14,8 @@ socketpair($socket1, $socket2, AF_UNIX, SOCK_STREAM, PF_UNSPEC) or die $!;
 my $line1 = POE::Filter::Line->new();
 my $line2 = POE::Filter::Line->new();
 
-my $filtered_stream1 = Reflexive::Stream::Filtering->new(handle => $socket1, filter => $line1);
-my $filtered_stream2 = Reflexive::Stream::Filtering->new(handle => $socket2, filter => $line2);
+my $filtered_stream1 = Reflexive::Stream::Filtering->new(handle => $socket1, input_filter => $line1, output_filter => $line1);
+my $filtered_stream2 = Reflexive::Stream::Filtering->new(handle => $socket2, input_filter => $line2, output_filter => $line2);
 
 $filtered_stream1->put("Here is some test data\n1\n2\n3\n");
 
