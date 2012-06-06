@@ -1,6 +1,6 @@
 package Reflexive::Stream::Filtering;
-BEGIN {
-  $Reflexive::Stream::Filtering::VERSION = '1.103450';
+{
+  $Reflexive::Stream::Filtering::VERSION = '1.121580';
 }
 
 #ABSTRACT: Provides a Reflex Stream object that can use POE::Filters
@@ -10,6 +10,8 @@ with 'Reflexive::Role::StreamFiltering';
 
 
 
+
+__PACKAGE__->meta->make_immutable();
 
 1;
 
@@ -23,7 +25,7 @@ Reflexive::Stream::Filtering - Provides a Reflex Stream object that can use POE:
 
 =head1 VERSION
 
-version 1.103450
+version 1.121580
 
 =head1 DESCRIPTION
 
@@ -70,7 +72,7 @@ chunks then each chunk will get its own method call.
 
 =head2 on_data
 
-    (Dict[data => Any])
+    (Reflexive::Event::Data)
 
 on_data is overridden from the underlying base class (which gained the method
 from the parameterized role that was consumed). Data is then passed on to the
@@ -83,7 +85,7 @@ Nicholas R. Perez <nperez@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Nicholas R. Perez <nperez@cpan.org>.
+This software is copyright (c) 2012 by Nicholas R. Perez <nperez@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

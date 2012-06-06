@@ -6,6 +6,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+lib/Reflexive/Event/Data.pm
 lib/Reflexive/Role/StreamFiltering.pm
 lib/Reflexive/Stream/Filtering.pm
 t/01-basic.t

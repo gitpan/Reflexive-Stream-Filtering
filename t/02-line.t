@@ -23,22 +23,22 @@ my $e_count = 0;
 while(my $e = $filtered_stream2->next())
 {
     $e_count++;
-    is($e->{name}, 'data', 'make sure the event we get is data 1/5');
+    is($e->_name(), 'data', 'make sure the event we get is data 1/5');
     if($e_count == 1)
     {
-        is($e->{arg}->{data}, 'Here is some test data', 'and that the data is correct 2/5');
+        is($e->data(), 'Here is some test data', 'and that the data is correct 2/5');
     }
     elsif($e_count == 2)
     {
-        is($e->{arg}->{data}, '1', 'Got the next element 3/5');
+        is($e->data(), '1', 'Got the next element 3/5');
     }
     elsif($e_count == 3)
     {
-        is($e->{arg}->{data}, '2', 'Got the next element 4/5');
+        is($e->data(), '2', 'Got the next element 4/5');
     }
     elsif($e_count == 4)
     {
-        is($e->{arg}->{data}, '3', 'Got the next element 5/5');
+        is($e->data(), '3', 'Got the next element 5/5');
         last;
     }
 }
@@ -51,22 +51,22 @@ my $e_count2 = 0;
 while(my $e2 = $filtered_stream1->next())
 {
     $e_count2++;
-    is($e2->{name}, 'data', 'make sure the return event we get is data 1/5');
+    is($e2->_name, 'data', 'make sure the return event we get is data 1/5');
     if($e_count2 == 1)
     {
-        is($e2->{arg}->{data}, 'And here is some data back', 'and that the return data is correct 2/5');
+        is($e2->data(), 'And here is some data back', 'and that the return data is correct 2/5');
     }
     elsif($e_count2 == 2)
     {
-        is($e2->{arg}->{data}, '3', 'Got the next element 3/5');
+        is($e2->data(), '3', 'Got the next element 3/5');
     }
     elsif($e_count2 == 3)
     {
-        is($e2->{arg}->{data}, '2', 'Got the next element 4/5');
+        is($e2->data(), '2', 'Got the next element 4/5');
     }
     elsif($e_count2 == 4)
     {
-        is($e2->{arg}->{data}, '1', 'Got the next element 5/5');
+        is($e2->data(), '1', 'Got the next element 5/5');
         last;
     }
 }

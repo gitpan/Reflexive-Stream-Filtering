@@ -1,6 +1,6 @@
 package Reflexive::Role::StreamFiltering;
-BEGIN {
-  $Reflexive::Role::StreamFiltering::VERSION = '1.103450';
+{
+  $Reflexive::Role::StreamFiltering::VERSION = '1.121580';
 }
 
 #ABSTRACT: Provides a composable behavior for Reflex::Streams to use POE::Filters
@@ -9,9 +9,7 @@ use Moose::Role;
 requires qw/ on_data put emit /;
 
 use POE::Filter::Stream;
-use MooseX::Params::Validate;
-use MooseX::Types::Moose(':all');
-use MooseX::Types::Structured(':all');
+use Reflexive::Event::Data;
 
 
 has input_filter =>
@@ -41,15 +39,9 @@ has output_filter =>
 
 around on_data => sub
 {
-    my ($orig, $self, $args) = pos_validated_list
-    (
-        \@_,
-        { isa => CodeRef },
-        { isa => __PACKAGE__ },
-        { isa => Dict[data => Any] },
-    );
+    my ($orig, $self, $args) = @_;
 
-    $self->filter_start([$args->{data}]);
+    $self->filter_start([$args->octets()]);
     while(1)
     {
         my $ret = $self->filter_get();
@@ -63,8 +55,9 @@ around on_data => sub
             {
                 $self->emit
                 (
-                    event => 'data',
-                    args => { data => $ret->[$_] }
+                    -name => 'data',
+                    -type => 'Reflexive::Event::Data',
+                    data => $ret->[$_],
                 );
             }
         }
@@ -74,13 +67,8 @@ around on_data => sub
 
 around put => sub
 {
-    my ($orig, $self, $arg) = pos_validated_list
-    (
-        \@_,
-        { isa => CodeRef },
-        { isa => __PACKAGE__ },
-        { isa => Any }
-    );
+    my ($orig, $self, $arg) = @_;
+
     my $ret = $self->filter_put([$arg]);
 
     $self->$orig($_) for @$ret;
@@ -98,7 +86,7 @@ Reflexive::Role::StreamFiltering - Provides a composable behavior for Reflex::St
 
 =head1 VERSION
 
-version 1.103450
+version 1.121580
 
 =head1 DESCRIPTION
 
@@ -154,7 +142,7 @@ chunks then each chunk will get its own method call.
 
 =head2 on_data
 
-    (Dict[data => Any])
+    (Reflexive::Event::Data)
 
 on_data is the advised to intercept data events. Data is passed through the
 ilter via get_one_start. Then get_one is called until no more filtered chunks
@@ -167,7 +155,7 @@ Nicholas R. Perez <nperez@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Nicholas R. Perez <nperez@cpan.org>.
+This software is copyright (c) 2012 by Nicholas R. Perez <nperez@cpan.org>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

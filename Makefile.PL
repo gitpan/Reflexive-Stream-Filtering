@@ -4,37 +4,37 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Provides a Reflex Stream object that can use POE::Filters',
-  'AUTHOR' => 'Nicholas R. Perez <nperez@cpan.org>',
-  'BUILD_REQUIRES' => {
-    'POE::Filter::Line' => '0',
-    'Socket' => '0',
-    'Test::More' => '0'
+  "ABSTRACT" => "Provides a Reflex Stream object that can use POE::Filters",
+  "AUTHOR" => "Nicholas R. Perez <nperez\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "POE::Filter::Line" => 0,
+    "Socket" => 0,
+    "Test::More" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Reflexive-Stream-Filtering',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Reflexive::Stream::Filtering',
-  'PREREQ_PM' => {
-    'Moose' => '0',
-    'Moose::Role' => '0',
-    'MooseX::Params::Validate' => '0',
-    'MooseX::Types::Moose' => '0',
-    'MooseX::Types::Structured' => '0',
-    'POE::Filter::Stream' => '0',
-    'Reflex::Stream' => '0'
+  "DISTNAME" => "Reflexive-Stream-Filtering",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Reflexive::Stream::Filtering",
+  "PREREQ_PM" => {
+    "Moose" => 0,
+    "Moose::Role" => 0,
+    "POE::Filter::Stream" => 0,
+    "Reflex::Event" => 0,
+    "Reflex::Stream" => 0
   },
-  'VERSION' => '1.103450',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "1.121580",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
