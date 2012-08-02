@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     "Reflex::Event" => 0,
     "Reflex::Stream" => 0
   },
-  "VERSION" => "1.121580",
+  "VERSION" => "1.122150",
   "test" => {
     "TESTS" => "t/*.t"
   }

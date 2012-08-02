@@ -1,4 +1,7 @@
-Revision history for Reflexive-Stream-Filtering: 1.121580
+Revision history for Reflexive-Stream-Filtering: 1.122150
+
+1.122150  2012-08-02 22:39:21 Europe/Amsterdam
+        Make the filters read-write and fix some docs
 
 1.121580  2012-06-06 17:06:24 Europe/Amsterdam
         Support the new Reflex::Event interface

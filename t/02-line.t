@@ -3,6 +3,7 @@ use strict;
 use Test::More;
 use Socket qw(AF_UNIX SOCK_STREAM PF_UNSPEC);
 use POE::Filter::Line;
+use POE::Filter::Stream;
 
 BEGIN
 {
@@ -17,7 +18,7 @@ my $line2 = POE::Filter::Line->new();
 my $filtered_stream1 = Reflexive::Stream::Filtering->new(handle => $socket1, input_filter => $line1, output_filter => $line1);
 my $filtered_stream2 = Reflexive::Stream::Filtering->new(handle => $socket2, input_filter => $line2, output_filter => $line2);
 
-$filtered_stream1->put("Here is some test data\n1\n2\n3\n");
+$filtered_stream1->put("Here is some test data\r\n1\r\n2\r\n3");
 
 my $e_count = 0;
 while(my $e = $filtered_stream2->next())
@@ -45,7 +46,7 @@ while(my $e = $filtered_stream2->next())
 
 is($e_count, 4, 'Got the right number of events');
 
-$filtered_stream2->put("And here is some data back\n3\n2\n1\n");
+$filtered_stream2->put("And here is some data back\r\n3\r\n2\r\n1");
 
 my $e_count2 = 0;
 while(my $e2 = $filtered_stream1->next())
@@ -72,5 +73,23 @@ while(my $e2 = $filtered_stream1->next())
 }
 
 is($e_count2, 4, 'Got the right number of events');
+
+# swap the filters live
+
+$filtered_stream1->input_filter(POE::Filter::Stream->new());
+$filtered_stream1->output_filter(POE::Filter::Stream->new());
+
+$filtered_stream2->input_filter(POE::Filter::Stream->new());
+$filtered_stream2->output_filter(POE::Filter::Stream->new());
+
+$filtered_stream1->put("Some data\r\n1\r\n2\r\n3\r\n");
+
+my $e = $filtered_stream2->next();
+is($e->data(), "Some data\r\n1\r\n2\r\n3\r\n", 'after first filter change');
+
+$filtered_stream2->put("Return data\r\n3\r\n2\r\n1\r\n");
+
+$e = $filtered_stream1->next();
+is($e->data(), "Return data\r\n3\r\n2\r\n1\r\n", 'after second filter change');
 
 done_testing();

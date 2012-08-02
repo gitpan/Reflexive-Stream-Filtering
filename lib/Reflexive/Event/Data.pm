@@ -1,6 +1,6 @@
 package Reflexive::Event::Data;
 {
-  $Reflexive::Event::Data::VERSION = '1.121580';
+  $Reflexive::Event::Data::VERSION = '1.122150';
 }
 use Moose;
 
@@ -28,7 +28,7 @@ Reflexive::Event::Data - Provides an Event subclass that contains the output fro
 
 =head1 VERSION
 
-version 1.121580
+version 1.122150
 
 =head1 DESCRIPTION
 
